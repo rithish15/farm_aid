@@ -18,7 +18,7 @@ username = ""
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="Norway!=2",
+  password="",
   database="farm_aid"
 )
 
