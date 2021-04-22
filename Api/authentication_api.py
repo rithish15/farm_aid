@@ -123,7 +123,7 @@ def generateOTP() :
 
 
 def send_otp_mobile():
-    client = clx.xms.Client(service_plan_id='908e49d7a97147d8bc4ca204488cfeba', token='1a24269e6f9d4bdbbdcea046821048a3')
+    client = clx.xms.Client(service_plan_id='', token='')
     create = clx.xms.api.MtBatchTextSmsCreate()
     create.sender = '447537404817'
     create.recipients = {'919677712669'}
