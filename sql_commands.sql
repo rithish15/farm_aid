@@ -1,3 +1,7 @@
+CREATE DATABASE farm_aid;
+
+use farm_aid;
+
 CREATE TABLE user_details (
     user_key int NOT NULL AUTO_INCREMENT,    
     mobile decimal(10,0),
