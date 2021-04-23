@@ -3,6 +3,7 @@ from flask import request, jsonify
 from flask_cors import CORS, cross_origin
 from api_db import add_farm, fetch_farms
 from authentication_api import new_user,verify_otp,login
+from farm_entry import new_entry,previous_entry
 import json
 
 app = flask.Flask(__name__,template_folder='template')
@@ -66,5 +67,17 @@ def logging_in():
     data = request.get_json()
     return login(data)
 
+
+@app.route("/post_entry/", methods=["POST", "GET"])
+@cross_origin(origin="*", headers=["Content-Type", "Authorization"])
+def post_entry():
+    data = request.get_json()
+    return new_entry(data)
+
+@app.route("/previous_entry/", methods=["POST", "GET"])
+@cross_origin(origin="*", headers=["Content-Type", "Authorization"])
+def previous_entries():
+    data = request.get_json()
+    return previous_entry(data)
 
 app.run(host='127.0.0.1', port = 5010)

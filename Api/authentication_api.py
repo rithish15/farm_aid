@@ -14,6 +14,7 @@ otp = ""
 mobile = ""
 password = ""
 username = ""
+email=""
 
 mydb = mysql.connector.connect(
   host="localhost",
@@ -27,11 +28,12 @@ def new_user(data):
     output = otp_func() 
     print(output["otp"])
     if(output["status"] == "success"):
-        global otp,mobile,password,username
+        global otp,mobile,password,username,email
         otp = output["otp"]
         mobile = data["mobile"]
         password = data["password"]
         username = data["name"]
+        email = data["email"]
         output = {"status": "success"}
         return jsonify(output)
     else:
@@ -54,12 +56,12 @@ def verify_otp(data):
         
 def add_user_to_db():
 
-    global mobile, password,mydb 
+    global mobile, password,name,email,mydb 
     mycursor = mydb.cursor()
 
 
-    sql = "INSERT INTO user_details (mobile,name,password) VALUES (%s, %s,%s)"
-    val = (mobile,username,password)
+    sql = "INSERT INTO user_details (mobile,name,email,password) VALUES (%s, %s,%s,%s)"
+    val = (mobile,username,email,password)
     mycursor.execute(sql, val)
 
     mydb.commit()
@@ -77,7 +79,7 @@ def login(data):
     else:
         user_info = myresult
         print(user_info[0])
-        return({"status":"success","user_info":user_info[0]})
+        return({"status":"success","user_info":list(user_info[0])})
 
 def email_confirmation(receiver_mail):
 
