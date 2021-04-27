@@ -332,6 +332,66 @@
             <section class="content">
                 <div class="container-fluid">
                     <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <div class="info-box" style="height: 90px;">
+                                    <span class="info-box-icon bg-info"><i class="far fa-list-alt"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Entries</span>
+                                        <span class="info-box-number" id="widget_entries">1,410</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <div class="info-box" style="height: 90px;">
+                                    <span class="info-box-icon bg-success"><i class="fas fa-water"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Irrigation</span>
+                                        <span class="info-box-number" id="widget_irrigation">410</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <div class="info-box" style="height: 90px;">
+                                    <span class="info-box-icon bg-warning"><i class="fas fa-poop"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Fertilizer</span>
+                                        <span class="info-box-number" id="widget_fertilizer">13,648</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-3 col-sm-6 col-12">
+                                <div class="info-box" style="height: 90px;">
+                                    <span class="info-box-icon bg-danger"><i class="fas fa-spray-can"></i></span>
+
+                                    <div class="info-box-content">
+                                        <span class="info-box-text">Pesticide</span>
+                                        <span class="info-box-number" id="widget_pesticide">93,139</span>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Previous entries</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -440,6 +500,39 @@
                                     }
                                 }
                             });
+                            $.ajax({
+                                url: 'http://127.0.0.1:5010/widgets/',
+                                type: 'POST',
+                                cors: true,
+                                headers: {
+                                    'Access-Control-Allow-Origin': '*',
+                                },
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    "user_key": user_key,
+                                    "farm_id": farm_id,
+                                }),
+                                success: function(output) {
+                                    console.log(output);
+                                    if (output["status"] == "success") {
+                                        var wid_info = "<p>" + output["no_of_entries"] + "</p>"
+                                        $("#widget_entries").html(wid_info);
+                                        wid_info = "<p>" + output["irrigation"] + "</p>"
+                                        $("#widget_irrigation").html(wid_info);
+                                        wid_info = "<p>" + output["fertilizer"] + "</p>"
+                                        $("#widget_fertilizer").html(wid_info);
+                                        wid_info = "<p>" + output["pesticide"] + "</p>"
+                                        $("#widget_pesticide").html(wid_info);
+                                    } else {
+                                        var wid_info = "<p>" + output["no_of_entries"] + "</p>"
+                                        $("#widget_entries").html(wid_info);
+                                        wid_info = "<p> no records found</p>"
+                                        $("#widget_irrigation").html(wid_info);
+                                        $("#widget_fertilizer").html(wid_info);
+                                        $("#widget_pesticide").html(wid_info);
+                                    }
+                                }
+                            });
                         };
 
 
@@ -493,7 +586,6 @@
                                 success: function(output) {
                                     console.log(output);
                                     if (output["status"] == "success") {
-
                                         location.reload();
                                     }
                                 }

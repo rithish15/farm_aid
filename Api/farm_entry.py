@@ -45,6 +45,54 @@ def previous_entry(data):
         user_info = myresult
         print(user_info[0])
         return({"status":"success","user_info":user_info[0]})
+    mycursor.close()
     output = {"status": "success"}
     return jsonify(output)
 
+
+def widget_info(data): 
+    mycursor = mydb.cursor()
+    sql = "select COUNT(*) from entryTable where user_id ="+data["user_key"]+" and farm_id="+data["farm_id"]
+    mycursor.execute(sql)
+    myresult = list(mycursor.fetchall())
+    if len(myresult) == 0:
+        output = {"status":"no previous entries","no_of_entries":0}
+        return(output)
+    else:
+        user_info = myresult
+        print(user_info[0])
+        output = {"no_of_entries":user_info[0]}
+    
+    sql = "select time from entryTable where user_id ="+data["user_key"]+" and farm_id="+data["farm_id"]+" and irrigation=True Order by entry_id DESC"
+    mycursor.execute(sql)
+    myresult = list(mycursor.fetchall())
+    if len(myresult) == 0:
+        output["irrigation"] = "No previous value"
+    else:
+        user_info = myresult
+        print(user_info[0])
+        output["irrigation"] = user_info[0]
+    
+    sql = "select time from entryTable where user_id ="+data["user_key"]+" and farm_id="+data["farm_id"]+" and fertilizer=True Order by entry_id DESC"
+    mycursor.execute(sql)
+    myresult = list(mycursor.fetchall())
+    if len(myresult) == 0:
+        output["fertilizer"] = "No previous value"
+    else:
+        user_info = myresult
+        print(user_info[0])
+        output["fertilizer"] = user_info[0]
+    
+    sql = "select time from entryTable where user_id ="+data["user_key"]+" and farm_id="+data["farm_id"]+" and pesticide=True Order by entry_id DESC"
+    mycursor.execute(sql)
+    myresult = list(mycursor.fetchall())
+    if len(myresult) == 0:
+        output["pesticide"] = "No previous value"
+    else:
+        user_info = myresult
+        print(user_info[0])
+        output["pesticide"] = user_info[0]
+    
+    output["status"] = "success"
+    mycursor.close()
+    return jsonify(output)

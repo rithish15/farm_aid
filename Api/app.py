@@ -3,7 +3,7 @@ from flask import request, jsonify
 from flask_cors import CORS, cross_origin
 from api_db import add_farm, fetch_farms
 from authentication_api import new_user,verify_otp,login
-from farm_entry import new_entry,previous_entry
+from farm_entry import new_entry,previous_entry,widget_info
 import json
 
 app = flask.Flask(__name__,template_folder='template')
@@ -80,4 +80,10 @@ def previous_entries():
     data = request.get_json()
     return previous_entry(data)
 
+
+@app.route("/widgets/", methods=["POST", "GET"])
+@cross_origin(origin="*", headers=["Content-Type", "Authorization"])
+def widgets():
+    data = request.get_json()
+    return widget_info(data)
 app.run(host='127.0.0.1', port = 5010)
