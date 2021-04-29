@@ -86,4 +86,71 @@ def previous_entries():
 def widgets():
     data = request.get_json()
     return widget_info(data)
+
+@app.route("/weather/", methods=["POST", "GET"])
+@cross_origin(origin="*", headers=["Content-Type", "Authorization"])
+def weather():
+    output = {
+    "result_weather": [
+        {
+            "date": "27-04-2021",
+            "day": 300.22,
+            "desc": "light rain",
+            "max": 303.03,
+            "min": 293.54
+        },
+        {
+            "date": "28-04-2021",
+            "day": 301.17,
+            "desc": "moderate rain",
+            "max": 302.41,
+            "min": 290.87
+        },
+        {
+            "date": "29-04-2021",
+            "day": 294.44,
+            "desc": "clear sky",
+            "max": 297.41,
+            "min": 286.08
+        },
+        {
+            "date": "30-04-2021",
+            "day": 293.92,
+            "desc": "clear sky",
+            "max": 298.44,
+            "min": 283.91
+        },
+        {
+            "date": "01-05-2021",
+            "day": 303.6,
+            "desc": "few clouds",
+            "max": 307.73,
+            "min": 288.64
+        },
+        {
+            "date": "02-05-2021",
+            "day": 309.66,
+            "desc": "scattered clouds",
+            "max": 312.79,
+            "min": 293.23
+        },
+        {
+            "date": "03-05-2021",
+            "day": 308.71,
+            "desc": "clear sky",
+            "max": 311.42,
+            "min": 295.19
+        },
+        {
+            "date": "04-05-2021",
+            "day": 306.91,
+            "desc": "clear sky",
+            "max": 309.59,
+            "min": 293.35
+        }
+    ]
+}
+    return output
+
+    
 app.run(host='127.0.0.1', port = 5010)
