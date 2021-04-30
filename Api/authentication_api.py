@@ -19,7 +19,7 @@ email=""
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="",
+  password="Norway!=2",
   database="farm_aid"
 )
 

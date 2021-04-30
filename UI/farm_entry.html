@@ -279,7 +279,7 @@
                                                         <label for="irrigation" class="custom-control-label">Irrigation</label>
                                                     </div>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" id="fertilizer" checked>
+                                                        <input class="custom-control-input" type="checkbox" id="fertilizer">
                                                         <label for="fertilizer" class="custom-control-label">Fertilizer</label>
                                                     </div>
                                                     <div class="custom-control custom-checkbox">
@@ -552,13 +552,14 @@
                             date_string = [year, month, day].join('-');
                             var comments = $("#entry_comments").val();
                             // var irrigation = $("#irrigation").val();
-                            var irrigation = $("#irrigation").attr('checked') ? true : false;
+                            var irrigation = $("#irrigation").is(":checked") ? true : false;
 
                             // var fertilizer = $("#fertilizer").val();
-                            var fertilizer = $("#fertilizer").attr('checked') ? true : false;
+                            // console.log($("#fertilizer:checked")[0]["checked"])
+                            var fertilizer = $("#fertilizer").is(":checked") ? true : false;
 
                             // var pesticide = $("#pesticide").val();
-                            var pesticide = $("#pesticide").attr('checked') ? true : false;
+                            var pesticide = $("#pesticide").is(":checked") ? true : false;
                             var date = $("#entry_comments").val();
                             var farm_id = getCookie('farm_id');
                             var user_key = getCookie('user_key');
